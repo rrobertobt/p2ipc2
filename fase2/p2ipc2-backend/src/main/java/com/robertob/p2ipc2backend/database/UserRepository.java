@@ -113,4 +113,43 @@ public class UserRepository {
         }
         return user;
     }
+
+    public boolean update(User user) {
+        String query = "";
+        if (user.getPassword().equals("")) {
+            query = "UPDATE users SET name = ?, username = ?, address = ?, phone = ?, email = ?, cui = ?, birthdate = ? WHERE id = ?";
+        } else {
+            query = "UPDATE users SET name = ?, username = ?, encrypted_password = ? , address = ?, phone = ?, email = ?, cui = ?, birthdate = ? WHERE id = ?";
+        }
+        try{
+            var preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getUsername());
+            if (!user.getPassword().equals("")) {
+                String encryptedPassword = BCrypt.withDefaults().hashToString(10, user.getPassword().toCharArray());
+                preparedStatement.setString(3, encryptedPassword);
+                preparedStatement.setString(4, user.getAddress());
+                preparedStatement.setString(5, user.getPhone());
+                preparedStatement.setString(6, user.getEmail());
+                preparedStatement.setString(7, user.getCui());
+                preparedStatement.setString(8, user.getBirthdate());
+                preparedStatement.setInt(9, user.getId());
+                System.out.println("log: password updated");
+            } else {
+                preparedStatement.setString(3, user.getAddress());
+                preparedStatement.setString(4, user.getPhone());
+                preparedStatement.setString(5, user.getEmail());
+                preparedStatement.setString(6, user.getCui());
+                preparedStatement.setString(7, user.getBirthdate());
+                preparedStatement.setInt(8, user.getId());
+                System.out.println("log: password not updated");
+            }
+            preparedStatement.executeUpdate();
+            System.out.println("log: user updated");
+            return true;
+        } catch (Exception e){
+            System.out.println("log: error on updating user: "+e);
+            return false;
+        }
+    }
 }

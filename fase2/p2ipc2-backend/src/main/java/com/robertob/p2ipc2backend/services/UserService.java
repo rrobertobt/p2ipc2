@@ -16,11 +16,14 @@ public class UserService {
         this.userRepository = new UserRepository();
     }
 
-    public boolean create(User user, HttpServletResponse response) throws IOException {
+    public boolean create(User user) {
         return userRepository.insert(user);
     }
 
-    public User login(User user) throws IOException {
+    public boolean update(User user) {
+        return userRepository.update(user);
+    }
+    public User login(User user) {
         var existingUser = userRepository.findOne(user.getUsername());
         if (existingUser == null) {
             System.out.println("log: user not found");

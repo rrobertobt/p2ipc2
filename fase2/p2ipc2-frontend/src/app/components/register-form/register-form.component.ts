@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {NewUserModel} from "../../models/new-user.model";
 import {RegisterService} from "../../services/register/register.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";

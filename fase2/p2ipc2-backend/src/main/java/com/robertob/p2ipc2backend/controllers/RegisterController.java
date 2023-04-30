@@ -30,7 +30,7 @@ public class RegisterController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         var user = gsonUser.readFromJson(request, User.class);
         boolean success = false;
-        success = userService.create(user, response);
+        success = userService.create(user);
         if (!success) {
             System.out.println("log: error on creating user");
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error on creating user");

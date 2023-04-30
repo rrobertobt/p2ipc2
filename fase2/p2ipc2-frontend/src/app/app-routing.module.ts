@@ -48,11 +48,25 @@ const routes: Routes = [
   {
     path: 'main-medics',
     component: MainMedicsComponent,
+    children: [
+      {
+        path: 'edit',
+        component: EditProfileComponent,
+        title: 'Médico - Editar perfil' + titleSufix
+      }
+    ],
     title: 'Médico - Principal' + titleSufix
   },
   {
     path: 'main-laboratories',
     component: MainLaboratoriesComponent,
+    children: [
+      {
+        path: 'edit',
+        component: EditProfileComponent,
+        title: 'Laboratorio - Editar perfil' + titleSufix
+      }
+    ],
     title: 'Laboratorio - Principal' + titleSufix
   },
   {

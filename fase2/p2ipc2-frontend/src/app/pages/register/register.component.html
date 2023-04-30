@@ -1,0 +1,32 @@
+<mat-toolbar
+  color="basic"
+  class="mat-elevation-z4"
+>
+  <span>
+    <a routerLink="/" mat-button style="font-size: 1rem">
+      <mat-icon>health_and_safety</mat-icon>
+      <strong >APLICACIÓN DE SALUD • IPC 2</strong>
+    </a>
+  </span>
+
+<!--  <span style="flex: 1 1 auto "></span>-->
+
+
+  <div style="margin-left: 20px; display: flex; flex-direction: row; gap: 0.5rem;">
+    <a routerLink="/login" mat-flat-button color="basic">
+      INICIAR SESIÓN
+    </a>
+    <a routerLink="/register" mat-stroked-button color="basic" disabled="true">
+      REGISTRARSE
+    </a>
+  </div>
+</mat-toolbar>
+<div class="main-container">
+  <div class="title">
+    <h1><strong>Comencemos</strong></h1>
+    <h3>Ingresa tus datos:</h3>
+  </div>
+  <div class="login-form">
+    <register-form></register-form>
+  </div>
+</div>

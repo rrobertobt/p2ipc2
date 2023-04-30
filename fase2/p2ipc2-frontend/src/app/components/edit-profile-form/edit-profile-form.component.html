@@ -1,0 +1,66 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-content>
+
+      <form (ngSubmit)="onSubmit()" class="form" #registerForm="ngForm">
+        <div class="fields">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Juan Perez" [(ngModel)]="user.name" name="name" required>
+            <mat-icon matSuffix>face</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput placeholder="juan1234" [(ngModel)]="user.username" name="username" required>
+            <mat-icon matSuffix>face</mat-icon>
+          </mat-form-field>
+<!--          <mat-form-field appearance="outline">-->
+<!--            <mat-label>Contraseña</mat-label>-->
+<!--            <input matInput placeholder="********" [(ngModel)]="user.password" name="password" type="password" required>-->
+<!--            <mat-icon matSuffix>password</mat-icon>-->
+<!--          </mat-form-field>-->
+          <mat-form-field appearance="outline">
+            <mat-label>Dirección</mat-label>
+            <input matInput placeholder="5ta Calle" [(ngModel)]="user.address" name="address" required>
+            <mat-icon matSuffix>pin_drop_outlined</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput placeholder="4327007" [(ngModel)]="user.phone" name="phone" maxlength="8" pattern="[0-9]*" required>
+            <mat-icon matSuffix>phone</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Correo electronico</mat-label>
+            <input matInput placeholder="persona@email.com" [(ngModel)]="user.email" name="email" required>
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>CUI</mat-label>
+            <input matInput placeholder="3847473810903" [(ngModel)]="user.cui" name="cui" type="text" maxlength="13" pattern="[0-9]*" required>
+            <mat-icon matSuffix>badge</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>
+              <ng-container *ngIf="user.type === 'patient' || user.type === 'medic' ">Fecha de nacimiento</ng-container>
+              <ng-container *ngIf="user.type === 'laboratory'">Fecha de fundación</ng-container>
+            </mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Elige una fecha" [(ngModel)]="user.birthdate" name="birthdate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+
+        <div class="card-actions">
+          <button mat-raised-button color="accent" type="submit" >
+            <mat-icon>save</mat-icon>
+            GUARDAR
+          </button>
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+</div>

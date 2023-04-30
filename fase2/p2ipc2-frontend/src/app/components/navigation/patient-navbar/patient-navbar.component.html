@@ -1,0 +1,32 @@
+<mat-toolbar
+  style="background-color: #a7c5eb"
+  class="mat-elevation-z4"
+>
+  <span>
+    <a routerLink="/main-patients" mat-button style="font-size: 1rem">
+      <mat-icon>accessibility_new</mat-icon>
+      <strong >PACIENTE • APLICACIÓN SALUD</strong>
+    </a>
+  </span>
+
+  <div style="margin-left: 20px; display: flex; flex-direction: row; gap: 0.5rem;">
+    <a mat-flat-button routerLink="/main-patients/edit" color="basic">
+      <mat-icon>edit</mat-icon>
+      PERFIL
+    </a>
+  </div>
+
+  <span style="flex: 1 1 auto "></span>
+
+  <div style="margin-left: 20px; display: flex; flex-direction: row; gap: 0.5rem;">
+    <span style="font-size: 1rem;  display: flex; flex-direction: row; align-items: center;">
+      <mat-icon style="margin-right: 0.4rem" >account_circle</mat-icon>
+      {{ userName }}
+    </span>
+    <button mat-flat-button (click)="logout()" color="basic">
+      <mat-icon>exit_to_app</mat-icon>
+      SALIR
+    </button>
+  </div>
+
+</mat-toolbar>

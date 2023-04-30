@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 400px;
+  padding: 0.8rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card-actions > * {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-bottom: -10px;
+}
+
+.user-types{
+  margin-bottom: 10px;
+}

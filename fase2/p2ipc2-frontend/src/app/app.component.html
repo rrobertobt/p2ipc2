@@ -1,0 +1,41 @@
+<!--<mat-toolbar-->
+<!--  color="{{isNotFound ? 'warn' : 'basic'}}"-->
+<!--  class="mat-elevation-z4"-->
+<!--&gt;-->
+<!--  <span *ngIf="isNotFound">-->
+<!--    <mat-icon style="margin-bottom: -5px; margin-right: 8px">error</mat-icon>-->
+<!--    Error - Página no encontrada-->
+<!--  </span>-->
+<!--  <span *ngIf="!isNotFound">-->
+<!--    <a routerLink="/" mat-button style="font-size: 1rem">-->
+<!--      <mat-icon>health_and_safety</mat-icon>-->
+<!--      <strong >APLICACIÓN DE SALUD • IPC 2</strong>-->
+<!--    </a>-->
+<!--  </span>-->
+
+<!--  <span style="flex: 1 1 auto "></span>-->
+
+<!--  <div style="margin-left: 20px" *ngIf="isNotFound">-->
+<!--    <a routerLink="/" mat-flat-button color="basic">-->
+<!--      INICIO-->
+<!--    </a>-->
+<!--  </div>-->
+
+<!--  <div style="margin-left: 20px" *ngIf="!isNotFound">-->
+<!--    <a routerLink="/login" mat-flat-button color="basic" [disabled]="loggedIn">-->
+<!--      INICIAR SESIÓN-->
+<!--    </a>-->
+<!--    <a routerLink="/register" mat-flat-button color="basic">-->
+<!--      REGISTRARSE-->
+<!--    </a>-->
+<!--    <a (click)="logout()" mat-flat-button color="basic" >-->
+<!--      CERRAR SESIÓN-->
+<!--    </a>-->
+<!--  </div>-->
+
+<!--</mat-toolbar>-->
+
+<main>
+  <router-outlet>
+  </router-outlet>
+</main>

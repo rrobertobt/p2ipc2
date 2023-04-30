@@ -1,0 +1,41 @@
+<div class="container">
+  <mat-card class="card">
+
+    <div style="text-align:center; margin-top: 1rem; margin-bottom: 1rem;">
+      <mat-card-title>Iniciar Sesión</mat-card-title>
+    </div>
+
+    <mat-card-content>
+
+      <form (ngSubmit)="onSubmit()" class="form" #loginForm="ngForm">
+
+        <div class="fields">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput placeholder="miUsuario123" [(ngModel)]="email" name="email" required>
+            <mat-icon matSuffix>face</mat-icon>
+          </mat-form-field>
+<!--          <mat-divider class="divider"></mat-divider>-->
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input matInput placeholder="********" [(ngModel)]="password" name="password" type="password" required>
+            <mat-icon matSuffix>password</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="card-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
+            ENTRAR
+            <mat-icon>login</mat-icon>
+          </button>
+          <p style="text-align: center">
+            <strong style="margin-right: 10px;">¿Eres nuevo?</strong> <a style="margin-bottom: 3px" routerLink="/register" mat-button color="basic">REGISTRATE</a>
+          </p>
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+</div>

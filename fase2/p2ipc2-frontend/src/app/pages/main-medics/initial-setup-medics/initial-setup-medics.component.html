@@ -1,0 +1,39 @@
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+  "
+>
+  <ng-container *ngIf="!alreadyCompleted">
+    <h1 style="text-align: center; font-weight: bold">
+      <mat-icon
+        style="font-size: 2rem; width: auto; height: auto; margin-bottom: -8px; margin-right: 8px;color: darkslategray"
+      >fact_check</mat-icon>
+      Completar información faltante
+    </h1>
+    <p style="text-align: center">
+      Por favor, completa la información faltante para poder continuar con <br> el
+      proceso de registro y poder recibir consultas de pacientes:
+    </p>
+    <app-initial-setup-medics-form
+      [specialities]="specialities"
+    >
+    </app-initial-setup-medics-form>
+  </ng-container>
+
+  <ng-container *ngIf="alreadyCompleted">
+    <mat-icon style="font-size: 4rem; width: auto; height: auto; color: mediumseagreen; margin-bottom: 2rem">
+      check_circle_outline
+    </mat-icon>
+    <h1 style="text-align: center; font-weight: bold">
+      La información necesaria ya ha sido completada
+    </h1>
+    <p style="text-align: center">
+      No es necesario que vuelvas a completar la información, puedes continuar utilizando la aplicación.
+    </p>
+  </ng-container>
+
+</div>

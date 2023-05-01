@@ -1,0 +1,57 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-content>
+
+      <form (ngSubmit)="onSubmit()" class="form" #initialSetupForm="ngForm">
+        <div class="fields">
+          <p>
+            <strong>
+              Elige los tipos de exámenes que ofrecerás y el precio de cada uno.
+            </strong>
+          </p>
+          <table mat-table [dataSource]="testTypes">
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let testType">
+                <mat-checkbox [(ngModel)]="testType.selected" name="specialityCheckbox"></mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <td mat-cell *matCellDef="let testType">{{ testType.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Descripción</th>
+              <td mat-cell *matCellDef="let testType">{{ testType.description }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="price" >
+              <th mat-header-cell *matHeaderCellDef>Precio</th>
+              <td mat-cell *matCellDef="let testType">
+                <mat-form-field appearance="outline" style="margin-top: 10px">
+                  <input matInput type="number" [(ngModel)]="testType.price" name="price">
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let speciality; columns: displayedColumns;"></tr>
+          </table>
+
+        </div>
+
+        <div class="card-actions">
+          <button mat-raised-button color="accent" type="submit" [disabled]="!initialSetupForm.valid" >
+            <mat-icon>save</mat-icon>
+            GUARDAR
+          </button>
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+</div>

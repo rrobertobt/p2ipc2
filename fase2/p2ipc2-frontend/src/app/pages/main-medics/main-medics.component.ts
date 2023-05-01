@@ -18,6 +18,8 @@ export class MainMedicsComponent implements OnInit {
     this.currentUser = this.currentUserService.getCurrentUser()
     if(!(this.currentUser && Object.keys(this.currentUser).length !== 0 && this.currentUserService.isMedic())){
       this.router.navigate(['/login']).then();
+    } else if ( !this.currentUserService.hasCompletedInitalSetup()) {
+      this.router.navigate(['/main-medics/initial-setup']).then();
     }
   }
 

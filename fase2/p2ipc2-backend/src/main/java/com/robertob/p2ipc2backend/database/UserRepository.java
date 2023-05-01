@@ -86,7 +86,8 @@ public class UserRepository {
     }
 
     public User findOne(String username){
-        String query = "SELECT * FROM users WHERE username = ?";
+        String query = "SELECT users.*, medics.id as medic_id, patients.id as patient_id, laboratories.id as laboratory_id FROM users LEFT JOIN medics ON users.id = medics.user_id LEFT JOIN patients ON users.id = patients.user_id LEFT JOIN laboratories ON users.id = laboratories.user_id WHERE users.username = ?";
+//        String query = "SELECT * FROM users WHERE username = ?";
         User user = null;
         try{
             var preparedStatement = connection.prepareStatement(query);
@@ -104,7 +105,11 @@ public class UserRepository {
                         .cui(resultSet.getString("cui"))
                         .birthdate(resultSet.getString("birthdate"))
                         .balance(resultSet.getDouble("balance"))
+                        .initial_setup(resultSet.getBoolean("initial_setup"))
                         .type(resultSet.getString("type"))
+                        .medic_id(resultSet.getInt("medic_id"))
+                        .patient_id(resultSet.getInt("patient_id"))
+                        .laboratory_id(resultSet.getInt("laboratory_id"))
                         .build();
                 System.out.println("log: user found");
             }
@@ -113,6 +118,40 @@ public class UserRepository {
         }
         return user;
     }
+
+    public User findOne(int id){
+        String query = "SELECT users.*, medics.id as medic_id, patients.id as patient_id, laboratories.id as laboratory_id FROM users LEFT JOIN medics ON users.id = medics.user_id LEFT JOIN patients ON users.id = patients.user_id LEFT JOIN laboratories ON users.id = laboratories.user_id WHERE users.id = ?";
+        User user = null;
+        try{
+            var preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            var resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                user = User.builder()
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .username(resultSet.getString("username"))
+                        .address(resultSet.getString("address"))
+                        .phone(resultSet.getString("phone"))
+                        .email(resultSet.getString("email"))
+                        .cui(resultSet.getString("cui"))
+                        .birthdate(resultSet.getString("birthdate"))
+                        .balance(resultSet.getDouble("balance"))
+                        .initial_setup(resultSet.getBoolean("initial_setup"))
+                        .type(resultSet.getString("type"))
+                        .medic_id(resultSet.getInt("medic_id"))
+                        .patient_id(resultSet.getInt("patient_id"))
+                        .laboratory_id(resultSet.getInt("laboratory_id"))
+                        .build();
+                System.out.println("log: user found");
+            }
+        } catch (Exception e){
+            System.out.println("log: error on finding user: "+e);
+        }
+        return user;
+    }
+
+
 
     public boolean update(User user) {
         String query = "";
@@ -149,6 +188,20 @@ public class UserRepository {
             return true;
         } catch (Exception e){
             System.out.println("log: error on updating user: "+e);
+            return false;
+        }
+    }
+
+    public boolean finishInitialSetup(int userId){
+        String query = "UPDATE users SET initial_setup = true WHERE id = ?";
+        try{
+            var preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.executeUpdate();
+            System.out.println("log: initial setup finished");
+            return true;
+        } catch (Exception e){
+            System.out.println("log: error on finishing initial setup: "+e);
             return false;
         }
     }

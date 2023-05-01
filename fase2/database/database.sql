@@ -1,0 +1,185 @@
+DROP DATABASE IF EXISTS clinic;
+CREATE DATABASE clinic;
+USE clinic;
+
+CREATE TABLE users (
+    id INT NOT NULL AUTO_INCREMENT ,
+    name VARCHAR(200) NOT NULL ,
+    username VARCHAR(200) NOT NULL UNIQUE ,
+    encrypted_password VARCHAR(1000) NOT NULL ,
+    address VARCHAR(200) NOT NULL ,
+    phone VARCHAR(20) NOT NULL ,
+    email VARCHAR(50) NOT NULL ,
+    cui VARCHAR(13) NOT NULL ,
+    birthdate DATETIME NOT NULL ,
+    balance DECIMAL(10,2) NOT NULL DEFAULT 100,
+    type VARCHAR(50) NOT NULL  ,
+    initial_setup BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE patients (
+    id INT NOT NULL AUTO_INCREMENT ,
+    user_id INT NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE medics (
+    id INT NOT NULL AUTO_INCREMENT ,
+    user_id INT NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE medic_schedules (
+    id INT NOT NULL AUTO_INCREMENT ,
+    medic_id INT NOT NULL ,
+    schedule VARCHAR(30) NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (medic_id) REFERENCES medics(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE laboratories (
+    id INT NOT NULL AUTO_INCREMENT ,
+    user_id INT NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE administrator (
+    id INT NOT NULL AUTO_INCREMENT ,
+    user_id INT NOT NULL ,
+    commission DECIMAL(3,2) NOT NULL DEFAULT 4,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE appointments (
+    id INT NOT NULL AUTO_INCREMENT ,
+    medic_id INT NOT NULL ,
+    patient_id INT NOT NULL ,
+    date DATETIME NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (medic_id) REFERENCES medics(id) ,
+    FOREIGN KEY (patient_id) REFERENCES patients(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE appointment_tests(
+    id INT NOT NULL AUTO_INCREMENT ,
+    test_name VARCHAR(200) NOT NULL ,
+    appointment_id INT NOT NULL ,
+    date DATETIME NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (appointment_id) REFERENCES appointments(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE test_requests(
+    id INT NOT NULL AUTO_INCREMENT ,
+    patient_id INT NOT NULL ,
+    laboratory_id INT NOT NULL ,
+    date DATETIME NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (patient_id) REFERENCES patients(id) ,
+    FOREIGN KEY (laboratory_id) REFERENCES laboratories(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE test_request_details (
+    id INT NOT NULL AUTO_INCREMENT ,
+    test_request_id INT NOT NULL ,
+    test_type_id INT NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (test_request_id) REFERENCES test_requests(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE specialities (
+    id INT NOT NULL AUTO_INCREMENT ,
+    name VARCHAR(200) NOT NULL ,
+    description VARCHAR(1000) NOT NULL ,
+    PRIMARY KEY (id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE medics_specialities (
+    medic_id INT NOT NULL ,
+    speciality_id INT NOT NULL ,
+    PRIMARY KEY (medic_id, speciality_id) ,
+    FOREIGN KEY (medic_id) REFERENCES medics(id) ,
+    FOREIGN KEY (speciality_id) REFERENCES specialities(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE test_types(
+    id INT NOT NULL AUTO_INCREMENT ,
+    name VARCHAR(200) NOT NULL ,
+    description VARCHAR(1000) NOT NULL ,
+    PRIMARY KEY (id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE laboratory_test_type(
+    laboratory_id INT NOT NULL ,
+    test_type_id INT NOT NULL ,
+    PRIMARY KEY (laboratory_id, test_type_id) ,
+    FOREIGN KEY (laboratory_id) REFERENCES laboratories(id) ,
+    FOREIGN KEY (test_type_id) REFERENCES test_types(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE new_test_type_requests(
+    id INT NOT NULL AUTO_INCREMENT ,
+    laboratory_id INT NOT NULL ,
+    status VARCHAR(50) NOT NULL ,
+    name VARCHAR(200) NOT NULL ,
+    description VARCHAR(1000) NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (laboratory_id) REFERENCES laboratories(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE new_speciality_requests(
+    id INT NOT NULL AUTO_INCREMENT ,
+    medic_id INT NOT NULL ,
+    status VARCHAR(50) NOT NULL ,
+    name VARCHAR(200) NOT NULL ,
+    description VARCHAR(1000) NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (medic_id) REFERENCES medics(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE balance_recharges(
+    id INT NOT NULL AUTO_INCREMENT ,
+    user_id INT NOT NULL ,
+    amount DECIMAL(10,2) NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

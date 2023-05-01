@@ -21,6 +21,21 @@ public class UserController extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        var id = getIdFromPath(request, response);
+        if (id == -1) {
+            return;
+        }
+        var user = userService.findOne(id);
+        if (user == null) {
+            System.out.println("log: error on getting user");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error on getting user");
+            return;
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
+        gsonUser.sendAsJson(response, user);
+    }
+    @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         boolean success = false;
         var id = getIdFromPath(request, response);

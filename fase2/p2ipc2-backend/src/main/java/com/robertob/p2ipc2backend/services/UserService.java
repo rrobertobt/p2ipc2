@@ -36,6 +36,9 @@ public class UserService {
         existingUser.setPassword(null);
         return existingUser;
     }
+    public User findOne(int id){
+        return userRepository.findOne(id);
+    }
 
     public List<User> list(){
         return userRepository.list();

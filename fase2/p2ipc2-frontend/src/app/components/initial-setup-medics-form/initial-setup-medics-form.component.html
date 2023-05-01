@@ -1,0 +1,94 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-content>
+
+      <form (ngSubmit)="onSubmit()" class="form" #initialSetupForm="ngForm">
+        <div class="fields">
+          <p>
+            <strong>Agrega los horarios en los que atenderás a tus pacientes.</strong>
+          </p>
+          <mat-form-field appearance="outline">
+              <mat-label>Agregar horario</mat-label>
+                <input matInput placeholder="Ejemplo: 08:00-12:00" [(ngModel)]="newSchedule" name="newSchedule">
+                <button mat-button type="button" (click)="addSchedule()">
+              <mat-icon>add</mat-icon>
+              Agregar
+            </button>
+          </mat-form-field>
+
+          <p>
+            <strong>Horarios agregados</strong>
+          </p>
+          <p
+            *ngIf="schedules.length === 0"
+            style="color: #757575; font-style: italic">
+            No has agregado ningún horario.
+          </p>
+          <mat-list style="margin-top: -16px">
+            <mat-list-item *ngFor="let schedule of schedules">
+              <span
+                style="
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  width: 100%;
+                  gap: 0.6rem;
+                  ">
+                <mat-icon>schedule</mat-icon>
+                {{ schedule }}
+              </span>
+            </mat-list-item>
+          </mat-list>
+
+
+          <p>
+            <strong>
+              Elige las especialidades que atenderás y el precio de cada una.
+            </strong>
+          </p>
+          <table mat-table [dataSource]="specialities">
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let speciality">
+                <mat-checkbox [(ngModel)]="speciality.selected" name="specialityCheckbox"></mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <td mat-cell *matCellDef="let speciality">{{ speciality.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Descripción</th>
+              <td mat-cell *matCellDef="let speciality">{{ speciality.description }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="price" >
+              <th mat-header-cell *matHeaderCellDef>Precio</th>
+              <td mat-cell *matCellDef="let speciality">
+                <mat-form-field appearance="outline" style="margin-top: 10px">
+                  <input matInput type="number" [(ngModel)]="speciality.price" name="price">
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let speciality; columns: displayedColumns;"></tr>
+          </table>
+
+        </div>
+
+        <div class="card-actions">
+          <button mat-raised-button color="accent" type="submit" [disabled]="!initialSetupForm.valid" >
+            <mat-icon>save</mat-icon>
+            GUARDAR
+          </button>
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+</div>

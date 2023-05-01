@@ -19,6 +19,8 @@ export class MainLaboratoriesComponent implements OnInit {
     this.currentUser = this.currentUserService.getCurrentUser()
     if(!(this.currentUser && Object.keys(this.currentUser).length !== 0 && this.currentUserService.isLaboratory())){
       this.router.navigate(['/login']).then();
+    } else if ( !this.currentUserService.hasCompletedInitalSetup()) {
+      this.router.navigate(['/main-laboratories/initial-setup']).then();
     }
   }
 

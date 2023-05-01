@@ -9,4 +9,8 @@ export interface UserModel {
   cui: string;
   birthdate: string;
   balance: number;
+  initial_setup: boolean;
+  medic_id: number;
+  laboratory_id: number;
+  patient_id: number;
 }

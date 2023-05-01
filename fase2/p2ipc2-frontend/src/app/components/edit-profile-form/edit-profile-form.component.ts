@@ -4,6 +4,7 @@ import {UpdateUserService} from "../../services/update-user/update-user.service"
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {LogoutService} from "../../services/logout/logout.service";
+import {CurrentUserService} from "../../services/current-user/current-user.service";
 
 
 @Component({
@@ -18,6 +19,7 @@ export class EditProfileFormComponent implements OnInit {
   constructor(
     private updateUserService: UpdateUserService,
     private logoutService: LogoutService,
+    private currentUserService: CurrentUserService,
     private snackBar: MatSnackBar,
     private router: Router
   ) {
@@ -42,12 +44,12 @@ export class EditProfileFormComponent implements OnInit {
     this.updateUserService.updateUser(newUser).subscribe({
       next: (response) => {
         console.log(response);
-        this.snackBar.open('Usuario actualizado exitosamente, por favor vuelve a iniciar sesión para aplicar los cambios ', 'OK', {
+        this.snackBar.open('Usuario actualizado exitosamente, por favor vuelve recarga la página para aplicar los cambios', 'OK', {
           duration: 5000,
           verticalPosition: 'top',
           horizontalPosition: 'center'
         });
-        this.logoutService.logout()
+        this.currentUserService.updateCurrentUser();
       },
       error: (error) => {
         console.log(error);

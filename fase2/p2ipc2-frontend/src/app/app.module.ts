@@ -32,6 +32,14 @@ import { MedicNavbarComponent } from './components/navigation/medic-navbar/medic
 import { LaboratoryNavbarComponent } from './components/navigation/laboratory-navbar/laboratory-navbar.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { EditProfileFormComponent } from './components/edit-profile-form/edit-profile-form.component';
+import { InitialSetupMedicsComponent } from './pages/main-medics/initial-setup-medics/initial-setup-medics.component';
+import { InitialSetupLaboratoriesComponent } from './pages/main-laboratories/initial-setup-laboratories/initial-setup-laboratories.component';
+import { InitialSetupMedicsFormComponent } from './components/initial-setup-medics-form/initial-setup-medics-form.component';
+import { InitialSetupLaboratoriesFormComponent } from './components/initial-setup-laboratories-form/initial-setup-laboratories-form.component';
+import {MatListModule} from "@angular/material/list";
+import {MatTableModule} from "@angular/material/table";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { DummyComponent } from './components/dummy/dummy.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +58,12 @@ import { EditProfileFormComponent } from './components/edit-profile-form/edit-pr
     MedicNavbarComponent,
     LaboratoryNavbarComponent,
     EditProfileComponent,
-    EditProfileFormComponent
+    EditProfileFormComponent,
+    InitialSetupMedicsComponent,
+    InitialSetupLaboratoriesComponent,
+    InitialSetupMedicsFormComponent,
+    InitialSetupLaboratoriesFormComponent,
+    DummyComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +81,10 @@ import { EditProfileFormComponent } from './components/edit-profile-form/edit-pr
     HttpClientModule,
     MatRadioModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatListModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

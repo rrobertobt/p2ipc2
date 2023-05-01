@@ -15,5 +15,9 @@ public class User {
     private String cui;
     private String birthdate;
     private String type;
+    private boolean initial_setup;
+    private int patient_id;
+    private int medic_id;
+    private int laboratory_id;
     private double balance;
 }

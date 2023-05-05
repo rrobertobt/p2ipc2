@@ -2,6 +2,11 @@ import {Component, Input} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CurrentUserService} from "../../services/current-user/current-user.service";
 import {Router} from "@angular/router";
+import {TestTypeLaboratoryModel} from "../../models/test-type-laboratory.model";
+import {MatDialog} from "@angular/material/dialog";
+import {BasicInfoDialogComponent} from "../utils/basic-info-dialog/basic-info-dialog.component";
+import {TestTypeModel} from "../../models/test-type.model";
+import {InitialSetupLaboratoriesService} from "../../services/initial-setup/initial-setup-laboratories.service";
 
 @Component({
   selector: 'app-initial-setup-laboratories-form',
@@ -10,13 +15,27 @@ import {Router} from "@angular/router";
 })
 export class InitialSetupLaboratoriesFormComponent {
 
-  @Input() testTypes: any[] = []
+  @Input() testTypes!: TestTypeLaboratoryModel[];
   displayedColumns: string[] = ['select', 'name', 'description', 'price'];
   constructor(
     private matSnackBar: MatSnackBar,
     private currentUserService: CurrentUserService,
-    private router: Router
+    private initialSetupLaboratoriesService: InitialSetupLaboratoriesService,
+    private router: Router,
+    private dialog: MatDialog
   ) {}
+
+  showDescriptionDialog(testType: TestTypeModel): void {
+    this.dialog.open(BasicInfoDialogComponent, {
+      data: {
+        name: testType.name,
+        description: testType.description
+      },
+      maxHeight: '50vh',
+      maxWidth: '50vw',
+    });
+  }
+
 
   onSubmit() {
     const laboratoryId = this.currentUserService.getCurrentUser().laboratory_id
@@ -32,11 +51,19 @@ export class InitialSetupLaboratoriesFormComponent {
     }
     const selectedTestTypes = this.testTypes.filter(s => s.selected).map(s => ({ id: s.id, price: s.price }));
     const requestBody = { test_types: selectedTestTypes, laboratory_id: laboratoryId, user_id: userId };
-    // send request to backend (is not ready yet, so we just log the request body, show snackbar and redirect to main page)
-    console.log(requestBody);
-    this.matSnackBar.open('Configuración inicial exitosa, por favor recarga la página para aplicar los cambios', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
-    this.router.navigate(['/main-laboratories']).then();
+
+    this.initialSetupLaboratoriesService.finishSetup(requestBody).subscribe(
+      {
+        next: (response) => {
+          this.matSnackBar.open('Configuración inicial exitosa, por favor recarga la página para aplicar los cambios', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
+          this.currentUserService.updateCurrentUser();
+          this.router.navigate(['/main-laboratories']).then();
+        },
+        error: (error) => {
+          console.log(error);
+          this.matSnackBar.open('Error al configurar el laboratorio', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
+        }
+      }
+    );
   }
-
-
 }

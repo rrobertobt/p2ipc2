@@ -4,6 +4,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {CurrentUserService} from "../../services/current-user/current-user.service";
 import {InitialSetupMedicsService} from "../../services/initial-setup/initial-setup-medics.service";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {BasicInfoDialogComponent} from "../utils/basic-info-dialog/basic-info-dialog.component";
+import {SpecialityModel} from "../../models/speciality.model";
 
 @Component({
   selector: 'app-initial-setup-medics-form',
@@ -20,10 +23,21 @@ export class InitialSetupMedicsFormComponent {
     private matSnackBar: MatSnackBar,
     private currentUserService: CurrentUserService,
     private initialSetupMedicsService: InitialSetupMedicsService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   displayedColumns: string[] = ['select', 'name', 'description', 'price'];
+  showDescriptionDialog(speciality: SpecialityModel): void {
+    this.dialog.open(BasicInfoDialogComponent, {
+      data: {
+        name: speciality.name,
+        description: speciality.description
+      },
+      maxHeight: '50vh',
+      maxWidth: '50vw',
+    });
+  }
   addSchedule() {
     console.log('Add schedule');
     if (this.newSchedule !== '') {

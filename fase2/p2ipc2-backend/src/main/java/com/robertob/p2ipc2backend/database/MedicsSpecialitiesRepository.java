@@ -15,12 +15,13 @@ public class MedicsSpecialitiesRepository {
 
     public void insert(InitialSetupMedic initialSetupMedic){
         int medic_id = initialSetupMedic.getMedic_id();
-        String query = "INSERT INTO medics_specialities (medic_id, speciality_id) VALUES (?, ?)";
+        String query = "INSERT INTO medics_specialities (medic_id, speciality_id, price) VALUES (?, ?, ?)";
         try {
             for ( var speciality : initialSetupMedic.getSpecialities()) {
                 var preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, medic_id);
                 preparedStatement.setInt(2, speciality.getId());
+                preparedStatement.setDouble(3, speciality.getPrice());
                 preparedStatement.executeUpdate();
                 System.out.println("log: speciality inserted");
             }

@@ -40,6 +40,8 @@ import {MatListModule} from "@angular/material/list";
 import {MatTableModule} from "@angular/material/table";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { DummyComponent } from './components/dummy/dummy.component';
+import { BasicInfoDialogComponent } from './components/utils/basic-info-dialog/basic-info-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -63,29 +65,31 @@ import { DummyComponent } from './components/dummy/dummy.component';
     InitialSetupLaboratoriesComponent,
     InitialSetupMedicsFormComponent,
     InitialSetupLaboratoriesFormComponent,
-    DummyComponent
+    DummyComponent,
+    BasicInfoDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatInputModule,
-    MatIconModule,
-    FormsModule,
-    MatCardModule,
-    MatDividerModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    HttpClientModule,
-    MatRadioModule,
-    MatSnackBarModule,
-    MatTooltipModule,
-    MatListModule,
-    MatTableModule,
-    MatCheckboxModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatInputModule,
+        MatIconModule,
+        FormsModule,
+        MatCardModule,
+        MatDividerModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        HttpClientModule,
+        MatRadioModule,
+        MatSnackBarModule,
+        MatTooltipModule,
+        MatListModule,
+        MatTableModule,
+        MatCheckboxModule,
+        MatDialogModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

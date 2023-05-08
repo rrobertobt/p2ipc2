@@ -15,6 +15,7 @@ import {CurrentUserService} from "../../services/current-user/current-user.servi
 export class EditProfileFormComponent implements OnInit {
 
   @Input() user!: UserModel;
+  isAdmin = this.currentUserService.isAdmin();
 
   constructor(
     private updateUserService: UpdateUserService,

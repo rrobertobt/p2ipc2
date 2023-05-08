@@ -38,8 +38,8 @@ export class LoginFormComponent {
           case 'laboratory':
             this.router.navigate(['/main-laboratories']).then();
             break;
-          case 'admin':
-            this.router.navigate(['/main-admins']).then();
+          case 'administrator':
+            this.router.navigate(['/main-admin']).then();
             break;
           default:
             this.router.navigate(['/login']).then();

@@ -15,6 +15,9 @@ import {
   InitialSetupLaboratoriesComponent
 } from "./pages/main-laboratories/initial-setup-laboratories/initial-setup-laboratories.component";
 import {DummyComponent} from "./components/dummy/dummy.component";
+import {MainAdminsComponent} from "./pages/main-admins/main-admins.component";
+import {HomePatientsComponent} from "./pages/main-patients/home-patients/home-patients.component";
+import {BalanceRechargeComponent} from "./pages/main-patients/balance-recharge/balance-recharge.component";
 
 const titleSufix = ' - P2IPC2';
 const routes: Routes = [
@@ -46,6 +49,16 @@ const routes: Routes = [
         path: 'edit',
         component: EditProfileComponent,
         title: 'Paciente - Editar perfil' + titleSufix
+      },
+      {
+        path: 'home',
+        component: HomePatientsComponent,
+        title: 'Paciente - Inicio' + titleSufix
+      },
+      {
+        path: 'balance-recharge',
+        component: BalanceRechargeComponent,
+        title: 'Paciente - Recarga de saldo' + titleSufix
       }
     ],
     title: 'Paciente - Principal' + titleSufix
@@ -80,9 +93,22 @@ const routes: Routes = [
         path: 'initial-setup',
         component: InitialSetupLaboratoriesComponent,
         title: 'Laboratorio - Configuración inicial' + titleSufix
-      }
+      },
+
     ],
     title: 'Laboratorio - Principal' + titleSufix
+  },
+  {
+    path: 'main-admin',
+    component: MainAdminsComponent,
+    title: 'Administrador - Principal' + titleSufix,
+    children: [
+      {
+        path: 'edit',
+        component: EditProfileComponent,
+        title: 'Administrador - Editar perfil' + titleSufix
+      }
+    ]
   },
   {
     path: '**',

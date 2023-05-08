@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+import com.robertob.p2ipc2backend.controllers.ControllerUtils;
+
 @WebServlet("/users/*")
 public class UserController extends HttpServlet {
     private final GsonUtils<User> gsonUser;
@@ -22,7 +24,15 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        var id = getIdFromPath(request, response);
+        // check if the path is only /users
+        var pathInfo = request.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            var users = userService.list();
+            response.setStatus(HttpServletResponse.SC_OK);
+            gsonUser.sendAsJson(response, users);
+            return;
+        }
+        var id = ControllerUtils.getIdFromPath(request, response);
         if (id == -1) {
             return;
         }
@@ -38,7 +48,7 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         boolean success = false;
-        var id = getIdFromPath(request, response);
+        var id = ControllerUtils.getIdFromPath(request, response);
         var user = gsonUser.readFromJson(request, User.class);
         success = userService.update(user);
         if (!success) {
@@ -48,26 +58,5 @@ public class UserController extends HttpServlet {
         }
         response.setStatus(HttpServletResponse.SC_OK);
         gsonUser.sendAsJson(response, user);
-    }
-
-    private int getIdFromPath(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        var pathInfo = request.getPathInfo();
-        if (pathInfo == null || pathInfo.equals("/")) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing id");
-            return -1;
-        }
-        var id = Integer.parseInt(pathInfo.substring(1));
-        if (id <= 0) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid id");
-            return -1;
-        }
-        try {
-            System.out.println("log: id: " + id);
-            return id;
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid id");
-            return -1;
-        }
-
     }
 }

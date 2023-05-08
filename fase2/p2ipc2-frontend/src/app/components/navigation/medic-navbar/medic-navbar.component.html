@@ -2,7 +2,10 @@
   style="background-color: #ffd6b6"
   class="mat-elevation-z4"
 >
-  <span>
+  <span style="display: flex; flex-direction: row; align-items: center; gap: 0.6rem">
+    <button mat-icon-button (click)="goBack()" color="basic">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
     <a routerLink="/main-medics" mat-button style="font-size: 1rem">
       <mat-icon>medical_information</mat-icon>
       <strong >MÉDICO • APLICACIÓN SALUD</strong>

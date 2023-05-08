@@ -42,6 +42,13 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { DummyComponent } from './components/dummy/dummy.component';
 import { BasicInfoDialogComponent } from './components/utils/basic-info-dialog/basic-info-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { HomePatientsComponent } from './pages/main-patients/home-patients/home-patients.component';
+import { HomeMedicsComponent } from './pages/main-medics/home-medics/home-medics.component';
+import { HomeLaboratoriesComponent } from './pages/main-laboratories/home-laboratories/home-laboratories.component';
+import { MainAdminsComponent } from './pages/main-admins/main-admins.component';
+import { AdminNavbarComponent } from './components/navigation/admin-navbar/admin-navbar.component';
+import { BalanceRechargeFormComponent } from './components/balance-recharge-form/balance-recharge-form.component';
+import { BalanceRechargeComponent } from './pages/main-patients/balance-recharge/balance-recharge.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +73,14 @@ import {MatDialogModule} from "@angular/material/dialog";
     InitialSetupMedicsFormComponent,
     InitialSetupLaboratoriesFormComponent,
     DummyComponent,
-    BasicInfoDialogComponent
+    BasicInfoDialogComponent,
+    HomePatientsComponent,
+    HomeMedicsComponent,
+    HomeLaboratoriesComponent,
+    MainAdminsComponent,
+    AdminNavbarComponent,
+    BalanceRechargeFormComponent,
+    BalanceRechargeComponent
   ],
     imports: [
         BrowserModule,

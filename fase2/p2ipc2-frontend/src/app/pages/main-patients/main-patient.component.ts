@@ -21,6 +21,9 @@ export class MainPatientComponent implements OnInit {
     if(!(this.currentUser && Object.keys(this.currentUser).length !== 0 && this.currentUserService.isPatient())){
       this.router.navigate(['/login']).then();
     }
+    // else {
+    //   this.router.navigate(['/main-patients/home']).then();
+    // }
   }
 
 }

@@ -31,12 +31,12 @@
           </p>
           <mat-form-field appearance="outline">
             <mat-label>Dirección</mat-label>
-            <input matInput placeholder="5ta Calle" [(ngModel)]="newUser.address" name="address" required>
+            <input matInput placeholder="5ta Calle" [(ngModel)]="newUser.address" name="address" required [disabled]="isAdmin">
             <mat-icon matSuffix>pin_drop_outlined</mat-icon>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Teléfono</mat-label>
-            <input matInput placeholder="4327007" [(ngModel)]="newUser.phone" name="phone" maxlength="8" pattern="[0-9]*" required>
+            <input matInput placeholder="4327007" [(ngModel)]="newUser.phone" name="phone" maxlength="8" pattern="[0-9]*" required [disabled]="isAdmin">
             <mat-icon matSuffix>phone</mat-icon>
           </mat-form-field>
           <mat-form-field appearance="outline">
@@ -46,7 +46,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>CUI</mat-label>
-            <input matInput placeholder="3847473810903" [(ngModel)]="newUser.cui" name="cui" type="text" maxlength="13" pattern="[0-9]*" required>
+            <input matInput placeholder="3847473810903" [(ngModel)]="newUser.cui" name="cui" type="text" maxlength="13" pattern="[0-9]*" required [disabled]="isAdmin">
             <mat-icon matSuffix>badge</mat-icon>
           </mat-form-field>
           <mat-form-field appearance="outline">

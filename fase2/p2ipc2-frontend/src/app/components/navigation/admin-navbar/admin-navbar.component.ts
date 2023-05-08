@@ -4,12 +4,12 @@ import {CurrentUserService} from "../../../services/current-user/current-user.se
 import {Location} from "@angular/common";
 
 @Component({
-  selector: 'app-medic-navbar',
-  templateUrl: './medic-navbar.component.html',
-  styleUrls: ['./medic-navbar.component.css']
+  selector: 'app-admin-navbar',
+  templateUrl: './admin-navbar.component.html',
+  styleUrls: ['./admin-navbar.component.css']
 })
-export class MedicNavbarComponent implements OnInit {
-  userName = 'Nombre Médico';
+export class AdminNavbarComponent implements OnInit {
+  userName = 'Nombre Administrador';
   balance = 0;
   constructor(
     private currentUserService: CurrentUserService,

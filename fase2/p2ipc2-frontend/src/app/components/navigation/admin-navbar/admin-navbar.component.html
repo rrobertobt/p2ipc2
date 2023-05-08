@@ -1,19 +1,19 @@
 <mat-toolbar
-  style="background-color: #f0d0c0"
+  style="background-color: #ff7770"
   class="mat-elevation-z4"
 >
   <span style="display: flex; flex-direction: row; align-items: center; gap: 0.6rem">
     <button mat-icon-button (click)="goBack()" color="basic">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <a routerLink="/main-laboratories" mat-button style="font-size: 1rem">
-      <mat-icon style="width: auto; height: auto; font-size: 1.6rem">biotech</mat-icon>
-      <strong >LABORATORIO • APLICACIÓN SALUD</strong>
+    <a routerLink="/main-admin" mat-button style="font-size: 1rem">
+      <mat-icon>admin_panel_settings</mat-icon>
+      <strong >ADMINISTRADOR • APLICACIÓN SALUD</strong>
     </a>
   </span>
 
   <div style="margin-left: 20px; display: flex; flex-direction: row; gap: 0.5rem;">
-    <a mat-flat-button routerLink="/main-laboratories/edit" color="basic">
+    <a mat-flat-button routerLink="/main-admin/edit" color="basic">
       <mat-icon>edit</mat-icon>
       PERFIL
     </a>
@@ -31,4 +31,5 @@
       SALIR
     </button>
   </div>
+
 </mat-toolbar>

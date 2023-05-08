@@ -19,5 +19,6 @@ public class User {
     private int patient_id;
     private int medic_id;
     private int laboratory_id;
+    private int administrator_id;
     private double balance;
 }

@@ -1,0 +1,18 @@
+<div class="container">
+  <mat-card class="card">
+    <form #balanceRechargeForm="ngForm">
+      <div class="fields">
+        <mat-form-field appearance="outline">
+          <mat-label>Cantidad</mat-label>
+          <input matInput placeholder="500" [(ngModel)]="newBalance" name="newBalance" type="number" required min="1">
+        </mat-form-field>
+      </div>
+      <div class="actions">
+        <button mat-raised-button style="background-color: #E3D87E"  type="submit" [disabled]="!balanceRechargeForm.valid" >
+          <mat-icon>add</mat-icon>
+          RECARGAR
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

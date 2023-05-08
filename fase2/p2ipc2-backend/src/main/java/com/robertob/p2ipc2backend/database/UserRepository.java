@@ -1,6 +1,7 @@
 package com.robertob.p2ipc2backend.database;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.robertob.p2ipc2backend.models.Administrator;
 import com.robertob.p2ipc2backend.models.User;
 
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
-    private Connection connection;
+    private final Connection connection;
 
     public UserRepository() {
         DatabaseConnection dbConnection = new DatabaseConnection();
@@ -86,7 +87,7 @@ public class UserRepository {
     }
 
     public User findOne(String username){
-        String query = "SELECT users.*, medics.id as medic_id, patients.id as patient_id, laboratories.id as laboratory_id FROM users LEFT JOIN medics ON users.id = medics.user_id LEFT JOIN patients ON users.id = patients.user_id LEFT JOIN laboratories ON users.id = laboratories.user_id WHERE users.username = ?";
+        String query = "SELECT users.*, medics.id as medic_id, patients.id as patient_id, laboratories.id as laboratory_id, administrator.id as administrator_id FROM users LEFT JOIN medics ON users.id = medics.user_id LEFT JOIN patients ON users.id = patients.user_id LEFT JOIN laboratories ON users.id = laboratories.user_id LEFT JOIN administrator ON users.id = administrator.user_id WHERE users.username = ?";
 //        String query = "SELECT * FROM users WHERE username = ?";
         User user = null;
         try{
@@ -110,6 +111,7 @@ public class UserRepository {
                         .medic_id(resultSet.getInt("medic_id"))
                         .patient_id(resultSet.getInt("patient_id"))
                         .laboratory_id(resultSet.getInt("laboratory_id"))
+                        .administrator_id(resultSet.getInt("administrator_id"))
                         .build();
                 System.out.println("log: user found");
             }
@@ -150,8 +152,6 @@ public class UserRepository {
         }
         return user;
     }
-
-
 
     public boolean update(User user) {
         String query = "";
@@ -202,6 +202,37 @@ public class UserRepository {
             return true;
         } catch (Exception e){
             System.out.println("log: error on finishing initial setup: "+e);
+            return false;
+        }
+    }
+
+    public boolean insertAdmin(Administrator admin) {
+        String query = "INSERT INTO users (name, username, encrypted_password, email, birthdate, type) VALUES (?, ?, ?, ?, ?, ?)";
+        String query2 = "INSERT INTO administrator (user_id) VALUES (?)";
+        try{
+            var preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, admin.getName());
+            preparedStatement.setString(2, admin.getUsername());
+            String encryptedPassword = BCrypt.withDefaults().hashToString(10, admin.getPassword().toCharArray());
+            preparedStatement.setString(3, encryptedPassword);
+            preparedStatement.setString(4, admin.getEmail());
+            preparedStatement.setString(5, admin.getBirthdate());
+            preparedStatement.setString(6, "administrator");
+            preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            int userId = 0;
+            if(generatedKeys.next()){
+                userId = generatedKeys.getInt(1);
+            }
+            System.out.println("log: user_id: "+userId);
+            var preparedStatement2 = connection.prepareStatement(query2);
+            preparedStatement2.setInt(1, userId);
+            preparedStatement2.executeUpdate();
+            System.out.println("log: admin inserted");
+            return true;
+        } catch (Exception e){
+            System.out.println("log: error on inserting admin: "+e);
             return false;
         }
     }

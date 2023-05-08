@@ -2,6 +2,7 @@ package com.robertob.p2ipc2backend.services;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.robertob.p2ipc2backend.database.UserRepository;
+import com.robertob.p2ipc2backend.models.Administrator;
 import com.robertob.p2ipc2backend.models.User;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -18,6 +19,10 @@ public class UserService {
 
     public boolean create(User user) {
         return userRepository.insert(user);
+    }
+
+    public boolean createAdmin(Administrator admin) {
+        return userRepository.insertAdmin(admin);
     }
 
     public boolean update(User user) {

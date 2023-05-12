@@ -17,6 +17,10 @@ export class AppointmentsService {
     return this.http.get<any>(`${this.apiUrl}/medics/${params.id}/appointments/${params.date}`);
   }
 
+  getPatientAppointments(id: number) {
+    return this.http.get<AppointmentModel[]>(`${this.apiUrl}/patients/${id}/appointments`);
+  }
+
   getOneAppointment(id: number) {
     return this.http.get<AppointmentModel>(`${this.apiUrl}/appointments/${id}`);
   }

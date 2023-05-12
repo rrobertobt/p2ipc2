@@ -11,8 +11,8 @@ import lombok.*;
 public class Appointment {
     private int id;
     private int medic_id;
+    private String medic_name;
     private int speciality_id;
-
     private String speciality_name;
     private int patient_id;
     private String patient_name;

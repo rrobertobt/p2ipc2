@@ -143,4 +143,37 @@ public class AppointmentsRepository {
             System.out.println("log: error on updating appointment"+e);
         }
     }
+
+    public List<Appointment> findAllPatientAppointments(int id) {
+        String query = "SELECT appointments.*, specialities.name, users.name AS medic_name FROM appointments JOIN specialities ON appointments.speciality_id = specialities.id JOIN medics ON appointments.medic_id = medics.id JOIN users ON medics.user_id = users.id WHERE appointments.patient_id = ?";
+        List<Appointment> appointments = new ArrayList<>();
+        try {
+            var preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            var resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Appointment appointment = Appointment.builder()
+                        .id(resultSet.getInt("id"))
+                        .medic_id(resultSet.getInt("medic_id"))
+                        .medic_name(resultSet.getString("medic_name"))
+                        .speciality_id(resultSet.getInt("speciality_id"))
+                        .speciality_name(resultSet.getString("name"))
+                        .patient_id(resultSet.getInt("patient_id"))
+                        .date(resultSet.getString("date"))
+                        .schedule(resultSet.getString("schedule"))
+                        .status(resultSet.getString("status"))
+                        .report(resultSet.getString("report"))
+                        .price(resultSet.getDouble("price"))
+                        .commission(resultSet.getDouble("commission"))
+                        .created_at(resultSet.getString("created_at"))
+                        .build();
+                System.out.println("log: appointment found");
+                appointments.add(appointment);
+            }
+            return appointments;
+        } catch (Exception e) {
+            System.out.println("log: error on finding appointments"+e);
+            return null;
+        }
+    }
 }

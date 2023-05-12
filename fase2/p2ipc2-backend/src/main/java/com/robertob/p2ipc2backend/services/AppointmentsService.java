@@ -24,6 +24,10 @@ public class AppointmentsService {
         return appointmentsRepository.findAllMedicAppointments(id, date);
     }
 
+    public List<Appointment> findAllPatientAppointments(int id) {
+        return appointmentsRepository.findAllPatientAppointments(id);
+    }
+
     public Appointment findOne(int id) {
         return appointmentsRepository.findOne(id);
     }

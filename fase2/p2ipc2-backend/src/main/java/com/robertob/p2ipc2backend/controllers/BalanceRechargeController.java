@@ -1,6 +1,7 @@
 package com.robertob.p2ipc2backend.controllers;
 
 import com.robertob.p2ipc2backend.models.BalanceRecharge;
+import com.robertob.p2ipc2backend.models.NewCommission;
 import com.robertob.p2ipc2backend.services.BalanceRechargeService;
 import com.robertob.p2ipc2backend.services.UserService;
 import com.robertob.p2ipc2backend.utils.GsonUtils;
@@ -14,12 +15,14 @@ import java.io.IOException;
 @WebServlet("/balance-recharge/*")
 public class BalanceRechargeController extends HttpServlet {
     private final GsonUtils<BalanceRecharge> gsonBalanceRecharge;
+    private final GsonUtils<NewCommission> gsonNewCommission;
     private final BalanceRechargeService balanceRechargeService;
     private final UserService userService;
 
     public BalanceRechargeController() {
         this.gsonBalanceRecharge = new GsonUtils<>();
         this.balanceRechargeService = new BalanceRechargeService();
+        this.gsonNewCommission = new GsonUtils<>();
         this.userService = new UserService();
     }
 
@@ -71,5 +74,23 @@ public class BalanceRechargeController extends HttpServlet {
         }
         response.setStatus(HttpServletResponse.SC_OK);
         gsonBalanceRecharge.sendAsJson(response, balanceRecharges);
+    }
+
+    // put method to update the commission of the administrator
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        var newPercentage = gsonNewCommission.readFromJson(request, NewCommission.class);
+        if (newPercentage == null) {
+            System.out.println("log: error on getting newPercentage");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error: newPercentage not found or error on getting newPercentage");
+            return;
+        }
+        var success = balanceRechargeService.updateAdminCommission(newPercentage.getPercentage());
+        if (!success) {
+            System.out.println("log: error on updating admin commission");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error: error on updating admin commission");
+            return;
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 }

@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginFormComponent} from "./components/login-form/login-form.component";
 import {NotFoundComponent} from "./pages/not-found/not-found.component";
 import {HomeComponent} from "./pages/home/home.component";
 import {LoginComponent} from "./pages/login/login.component";
@@ -22,6 +21,7 @@ import {ScheduleAppointmentComponent} from "./pages/main-patients/schedule-appoi
 import {HomeMedicsComponent} from "./pages/main-medics/home-medics/home-medics.component";
 import {HomeLaboratoriesComponent} from "./pages/main-laboratories/home-laboratories/home-laboratories.component";
 import {AppointmentDetailsComponent} from "./pages/main-medics/appointment-details/appointment-details.component";
+import {HomeAdminComponent} from "./pages/main-admins/home-admin/home-admin.component";
 
 const titleSufix = ' - P2IPC2';
 const routes: Routes = [
@@ -130,6 +130,11 @@ const routes: Routes = [
         path: 'edit',
         component: EditProfileComponent,
         title: 'Administrador - Editar perfil' + titleSufix
+      },
+      {
+        path: 'home',
+        component: HomeAdminComponent,
+        title: 'Administrador - Inicio' + titleSufix
       }
     ]
   },

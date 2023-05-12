@@ -20,4 +20,8 @@ public class BalanceRechargeService {
     public List<BalanceRechargeHistory> findAllByUserId(int id) {
         return balanceRechargeRepository.findAllByUserId(id);
     }
+
+    public boolean updateAdminCommission(double newCommission){
+        return balanceRechargeRepository.updateAdminCommission(newCommission);
+    }
 }

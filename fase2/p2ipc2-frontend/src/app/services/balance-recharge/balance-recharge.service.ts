@@ -25,6 +25,10 @@ export class BalanceRechargeService {
     });
   }
 
+  updateAdminCommission(newCommission: number) {
+    return this.http.put<any>(`${this.apiUrl}/balance-recharge`, {percentage: newCommission});
+  }
+
   getHistoryObservable(): BehaviorSubject<any> {
     return this.historySubject;
   }

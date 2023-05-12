@@ -11,5 +11,6 @@ export interface AppointmentModel {
   report: string;
   price: number;
   commission: number;
+  medic_name?: string;
   created_at: string;
 }

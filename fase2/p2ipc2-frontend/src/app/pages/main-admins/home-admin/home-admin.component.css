@@ -1,0 +1,16 @@
+.main-container {
+  margin: 3rem;
+}
+
+.commission-card {
+  padding: 1.5rem;
+  width: 400px;
+}
+
+.commission-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:1rem;
+}

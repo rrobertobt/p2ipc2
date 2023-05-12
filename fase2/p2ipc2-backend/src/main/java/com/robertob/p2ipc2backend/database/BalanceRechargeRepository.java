@@ -58,4 +58,18 @@ public class BalanceRechargeRepository {
         }
         return balanceRechargeHistories;
     }
+
+    public boolean updateAdminCommission(double newCommission) {
+        try {
+            String query = "UPDATE administrator SET commission = ?";
+            var preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setDouble(1, newCommission);
+            preparedStatement.executeUpdate();
+            System.out.println("log: admin commission updated" + newCommission);
+            return true;
+        } catch (Exception e) {
+            System.out.println("log: error on updating admin commission"+e);
+            return false;
+        }
+    }
 }

@@ -10,21 +10,13 @@ import * as moment from "moment";
   styleUrls: ['./home-medics.component.css']
 })
 export class HomeMedicsComponent implements OnInit {
-  formatter: Intl.DateTimeFormat
   testData = [];
   selectedDate: Date | null = new Date();
   displayedColumns = ['id', 'speciality_name', 'patient_name', 'schedule', 'status', 'actions']
   constructor(
     private appointmentsService: AppointmentsService,
     private currentUserService: CurrentUserService
-  ) {
-    this.formatter = new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      timeZone: 'UTC'
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.fetchAppointments();

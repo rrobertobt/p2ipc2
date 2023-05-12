@@ -1,0 +1,21 @@
+<div class="main-container">
+  <mat-card class="commission-card">
+    <mat-card-title>Actualizar porcentaje de comisión</mat-card-title>
+    <mat-card-content>
+      <div class="commission-card-content">
+        <p>
+          Ingresa el porcentaje de comisión que deseas aplicar a la aplicación por cada acción que se realiza para recargar a tu saldo.
+        </p>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Porcentaje de comisión" [(ngModel)]="newCommission" min="1" max="100">%
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="saveNewCommission()">
+          <mat-icon>
+            save
+          </mat-icon>
+          ACTUALIZAR
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

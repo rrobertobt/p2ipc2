@@ -55,6 +55,7 @@ import { CancelOkDialogComponent } from './components/utils/cancel-ok-dialog/can
 import { AppointmentDetailsComponent } from './pages/main-medics/appointment-details/appointment-details.component';
 import { AppointmentDetailsCardComponent } from './components/appointment-details-card/appointment-details-card.component';
 import { AppointmentInfoComponent } from './components/appointment-details-card/appointment-info/appointment-info.component';
+import { HomeAdminComponent } from './pages/main-admins/home-admin/home-admin.component';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import { AppointmentInfoComponent } from './components/appointment-details-card/
     CancelOkDialogComponent,
     AppointmentDetailsComponent,
     AppointmentDetailsCardComponent,
-    AppointmentInfoComponent
+    AppointmentInfoComponent,
+    HomeAdminComponent
   ],
     imports: [
         BrowserModule,

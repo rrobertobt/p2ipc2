@@ -1,6 +1,7 @@
 package com.robertob.p2ipc2backend.services;
 
 import com.robertob.p2ipc2backend.database.SpecialityRepository;
+import com.robertob.p2ipc2backend.models.AllMedicsSpecialities;
 import com.robertob.p2ipc2backend.models.Speciality;
 
 import java.util.List;
@@ -14,5 +15,9 @@ public class SpecialityService {
 
     public List<Speciality> findAll() {
         return specialityRepository.findAll();
+    }
+
+    public List<AllMedicsSpecialities> findAllMedicsSpecialities() {
+        return specialityRepository.findAllMedicsSpecialities();
     }
 }

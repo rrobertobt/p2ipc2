@@ -48,4 +48,28 @@ public class BalanceRechargeController extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         gsonBalanceRecharge.sendAsJson(response, balanceRecharge);
     }
+
+    // get method for history of balance recharges of a user
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        var id = ControllerUtils.getIdFromPath(request, response);
+        if (id == -1) {
+            return;
+        }
+        var user = userService.findOne(id);
+        if (user == null) {
+            System.out.println("log: error on getting user");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error: User not found or error on getting user");
+            return;
+        }
+
+        var balanceRecharges = balanceRechargeService.findAllByUserId(id);
+        if (balanceRecharges == null) {
+            System.out.println("log: error on getting balanceRecharges");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error: BalanceRecharges not found or error on getting balanceRecharges");
+            return;
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
+        gsonBalanceRecharge.sendAsJson(response, balanceRecharges);
+    }
 }

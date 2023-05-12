@@ -6,7 +6,7 @@
     <button mat-icon-button (click)="goBack()" color="basic">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <a routerLink="/main-medics" mat-button style="font-size: 1rem">
+    <a routerLink="/main-medics/home" mat-button style="font-size: 1rem">
       <mat-icon>medical_information</mat-icon>
       <strong >MÉDICO • APLICACIÓN SALUD</strong>
     </a>
@@ -25,6 +25,10 @@
     <span style="font-size: 1rem;  display: flex; flex-direction: row; align-items: center;">
       <mat-icon style="margin-right: 0.4rem" >account_circle</mat-icon>
       {{ userName }}
+    </span>
+    <span style="font-size: 1rem;  display: flex; flex-direction: row; align-items: center;">
+      <mat-icon style="margin-right: 0.4rem" >paid</mat-icon>
+      Saldo: {{ balance }}
     </span>
     <button mat-flat-button (click)="logout()" color="basic">
       <mat-icon>exit_to_app</mat-icon>

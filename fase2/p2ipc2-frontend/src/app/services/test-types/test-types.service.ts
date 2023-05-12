@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {TestTypeLaboratoryModel} from "../../models/test-type-laboratory.model";
 import {TestTypeModel} from "../../models/test-type.model";
+import {AppointmentTestTypeModel} from "../../models/AppointmentTestTypeModel";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,20 @@ export class TestTypesService {
         testTypeWithPriceAndSelected.selected = false;
         testTypeWithPriceAndSelected.price = 0;
         return testTypeWithPriceAndSelected;
+      }
+      ))
+    );
+  }
+
+  getTestTypesForAppointmentFinalization():Observable<AppointmentTestTypeModel[]> {
+    return this.http.get<TestTypeModel[]>(`${this.apiUrl}/test-types`).pipe(
+      map(testTypes => testTypes.map(testType => {
+        const testTypeWithSelected = new AppointmentTestTypeModel();
+        testTypeWithSelected.id = testType.id;
+        testTypeWithSelected.name = testType.name;
+        testTypeWithSelected.description = testType.description;
+        testTypeWithSelected.selected = false;
+        return testTypeWithSelected;
       }
       ))
     );

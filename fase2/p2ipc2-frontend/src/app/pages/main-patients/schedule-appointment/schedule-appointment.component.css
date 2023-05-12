@@ -1,0 +1,11 @@
+.main-container {
+  margin: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 3rem;
+}
+
+h1 {
+  font-weight: bold;
+}

@@ -49,6 +49,13 @@ import { MainAdminsComponent } from './pages/main-admins/main-admins.component';
 import { AdminNavbarComponent } from './components/navigation/admin-navbar/admin-navbar.component';
 import { BalanceRechargeFormComponent } from './components/balance-recharge-form/balance-recharge-form.component';
 import { BalanceRechargeComponent } from './pages/main-patients/balance-recharge/balance-recharge.component';
+import { BalanceHistoryComponent } from './components/balance-history/balance-history.component';
+import { ScheduleAppointmentComponent } from './pages/main-patients/schedule-appointment/schedule-appointment.component';
+import { CancelOkDialogComponent } from './components/utils/cancel-ok-dialog/cancel-ok-dialog.component';
+import { AppointmentDetailsComponent } from './pages/main-medics/appointment-details/appointment-details.component';
+import { AppointmentDetailsCardComponent } from './components/appointment-details-card/appointment-details-card.component';
+import { AppointmentInfoComponent } from './components/appointment-details-card/appointment-info/appointment-info.component';
+
 
 @NgModule({
   declarations: [
@@ -80,7 +87,13 @@ import { BalanceRechargeComponent } from './pages/main-patients/balance-recharge
     MainAdminsComponent,
     AdminNavbarComponent,
     BalanceRechargeFormComponent,
-    BalanceRechargeComponent
+    BalanceRechargeComponent,
+    BalanceHistoryComponent,
+    ScheduleAppointmentComponent,
+    CancelOkDialogComponent,
+    AppointmentDetailsComponent,
+    AppointmentDetailsCardComponent,
+    AppointmentInfoComponent
   ],
     imports: [
         BrowserModule,

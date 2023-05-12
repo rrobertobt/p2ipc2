@@ -1,1 +1,62 @@
-<p>home-medics works!</p>
+<div class="main-container">
+  <h1 style="font-weight: bold">
+    Bienvenid@!
+  </h1>
+  <p style="font-size: 1.2rem; margin-bottom: 2rem">
+    En esta sección podrás ver las consultas que te han solicitado y manejarlas.
+  </p>
+  <div>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h2 style="font-weight: bold; font-size: 1.5rem">Consultas</h2>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="date-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Elige una fecha" [(ngModel)]="selectedDate" (dateChange)="addEvent($event)" >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="table-container">
+          <table mat-table [dataSource]="testData" class="mat-elevation-z8">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="speciality_name">
+              <th mat-header-cell *matHeaderCellDef> Especialidad </th>
+              <td mat-cell *matCellDef="let element"> {{element.speciality_name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="patient_name">
+              <th mat-header-cell *matHeaderCellDef> Paciente </th>
+              <td mat-cell *matCellDef="let element"> {{element.patient_name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="schedule">
+              <th mat-header-cell *matHeaderCellDef> Horario </th>
+              <td mat-cell *matCellDef="let element"> {{element.schedule}} </td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Estado </th>
+              <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <a mat-button color="primary" [routerLink]="['/main-medics/appointments', element.id]">
+                  <mat-icon>visibility</mat-icon>
+                  DETALLES
+                </a>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

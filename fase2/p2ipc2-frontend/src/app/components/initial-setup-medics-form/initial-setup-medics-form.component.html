@@ -21,11 +21,11 @@
           </p>
           <p
             *ngIf="schedules.length === 0"
-            style="color: #757575; font-style: italic">
+            style="color: #757575; font-style: italic; margin-top: -10px; margin-bottom: -10px; height: 1px;">
             No has agregado ningún horario.
           </p>
-          <mat-list style="margin-top: -16px">
-            <mat-list-item *ngFor="let schedule of schedules">
+          <mat-list style="margin-top: -10px; height: 40px; overflow-y: auto; display: flex;flex-wrap: wrap; border: 1px solid #ccc; border-radius: 4px; padding: 6px">
+            <mat-list-item *ngFor="let schedule of schedules" style="box-sizing: border-box; width: 200px">
               <span
                 style="
                   display: flex;

@@ -26,6 +26,10 @@
       <mat-icon style="margin-right: 0.4rem" >account_circle</mat-icon>
       {{ userName }}
     </span>
+    <span style="font-size: 1rem;  display: flex; flex-direction: row; align-items: center;">
+      <mat-icon style="margin-right: 0.4rem" >paid</mat-icon>
+      Saldo: {{ balance }}
+    </span>
     <button mat-flat-button (click)="logout()" color="basic">
       <mat-icon>exit_to_app</mat-icon>
       SALIR

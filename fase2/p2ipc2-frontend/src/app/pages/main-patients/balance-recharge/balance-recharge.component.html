@@ -4,19 +4,31 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 28px;
     height: 90vh;
   "
 >
-  <h1 style="text-align: center; font-weight: bold">
-  <mat-icon
-    style="font-size: 2rem; width: auto; height: auto; margin-bottom: -8px; margin-right: 8px;color: darkslategray"
-  >currency_exchange</mat-icon>
-  Recarga de saldo
-</h1>
-  <p style="text-align: center">
-    Recarga tu saldo para poder realizar consultas y solicitar exámenes. <br>
-    Ingresa el monto que deseas recargar y haz click en el botón "Recargar".
-  </p>
-  <app-balance-recharge-form>
-  </app-balance-recharge-form>
+  <div>
+    <h1 style="text-align: center; font-weight: bold">
+      <mat-icon
+        style="font-size: 2rem; width: auto; height: auto; margin-bottom: -8px; margin-right: 8px;color: darkslategray"
+      >currency_exchange</mat-icon>
+      Recarga de saldo
+    </h1>
+    <p style="text-align: center">
+      Recarga tu saldo para poder realizar consultas y solicitar exámenes. <br>
+      Ingresa el monto que deseas recargar y haz click en el botón "Recargar".
+    </p>
+    <app-balance-recharge-form>
+    </app-balance-recharge-form>
+  </div>
+  <div>
+    <h1 style="text-align: center; font-weight: bold">
+      <mat-icon
+        style="font-size: 2rem; width: auto; height: auto; margin-bottom: -8px; margin-right: 8px;color: darkslategray"
+      >history</mat-icon>
+      Historial de recargas
+    </h1>
+    <app-balance-history></app-balance-history>
+  </div>
 </div>

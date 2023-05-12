@@ -1,0 +1,90 @@
+<div class="main-container">
+  <div class="specialities">
+    <h1>
+      <mat-icon
+        style="font-size: 2rem; width: auto; height: auto; margin-bottom: -8px; margin-right: 8px;color: darkslategray"
+      >note_alt</mat-icon>
+      Agendar consulta con médico
+    </h1>
+    <p>
+      Médicos y especialidades disponibles: <br>
+      Selecciona una fecha y luego, haz click en el botón <strong>AGENDAR</strong> para agendar una consulta con el médico de la especialidad de tu elección.
+    </p>
+    <mat-form-field appearance="outline" >
+      <mat-label>Fecha para consulta</mat-label>
+      <input matInput [matDatepicker]="picker" (dateChange)="resetSelectedMedic()" [(ngModel)]="appointmentDate" placeholder="Elige una fecha" name="appointmentDate">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div style="margin-top: 16px; width: 950px; height: 500px; overflow-y: auto; border-radius: 10px" class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" >
+
+        <ng-container matColumnDef="speciality_name">
+          <th mat-header-cell *matHeaderCellDef> Especialidad </th>
+          <td mat-cell *matCellDef="let element"><strong>{{element.speciality_name}}</strong> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="medic_name">
+          <th mat-header-cell *matHeaderCellDef> Nombre del medico </th>
+          <td mat-cell *matCellDef="let element"><strong>{{element.medic_name }}</strong> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef> Precio </th>
+          <td mat-cell *matCellDef="let element"> {{element.price }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="create">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button (click)="onMedicSelected(element)" [disabled]="!canCreateAppointment(element.price)">
+              <mat-icon>add</mat-icon>
+              AGENDAR
+            </button>
+            <span *ngIf="!canCreateAppointment(element.price)" style="margin-left: 10px; text-transform: uppercase; color: #f86b86; font-weight: bold">
+              saldo insuficiente
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Table Rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
+  </div>
+
+  <div class="schedules">
+    <h1>
+      <mat-icon
+        style="font-size: 2rem; width: auto; height: auto; margin-bottom: -8px; margin-right: 8px;color: darkslategray"
+      >schedule</mat-icon>
+      Horarios disponibles
+    </h1>
+    <div *ngIf="selectedMedic">
+      <span style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 0.3rem">
+        <h3>Horarios disponibles para:</h3>
+        <h3><strong>{{selectedMedic?.medic_name}}</strong></h3>
+      </span>
+      <div *ngFor="let schedule of availableHours" style="display: flex; flex-direction: row; align-items: center; gap: 1rem;">
+        <h2 style="display: flex; flex-direction: row; align-items: center;">
+          <mat-icon
+            style="font-size: 1.4rem; width: auto; height: auto; margin-right: 8px;color: darkslategray"
+          >schedule</mat-icon>
+          {{ schedule }}
+        </h2>
+        <button mat-stroked-button color="primary" (click)="scheduleAppointment(schedule)">
+          <mat-icon>check</mat-icon>
+          SELECCIONAR
+        </button>
+      </div>
+    </div>
+    <div *ngIf="!selectedMedic">
+      <h3>No has seleccionado un médico y especialidad</h3>
+    </div>
+  </div>
+
+
+</div>

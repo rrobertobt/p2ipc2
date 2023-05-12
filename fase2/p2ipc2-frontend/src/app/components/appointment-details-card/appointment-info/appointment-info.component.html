@@ -1,0 +1,39 @@
+<h4>Detalles:</h4>
+<div style="display: flex; flex-direction: column; align-items: start; gap: 1rem; font-size: 0.9rem">
+          <span>
+            <strong>
+              ID:
+            </strong>
+            {{ appointment.id }}
+          </span>
+  <span>
+            <strong>
+              Paciente:
+            </strong>
+    {{ appointment.patient_name }}
+          </span>
+  <span>
+            <strong>
+              Especialidad:
+            </strong>
+    {{ appointment.speciality_name }}
+          </span>
+  <span>
+            <strong>
+              Fecha:
+            </strong>
+    {{ appointment.date }}
+          </span>
+  <span>
+            <strong>
+              Hora:
+            </strong>
+    {{ appointment.schedule }}
+          </span>
+  <span>
+            <strong>
+              Estado:
+            </strong>
+    {{ appointment.status }}
+          </span>
+</div>

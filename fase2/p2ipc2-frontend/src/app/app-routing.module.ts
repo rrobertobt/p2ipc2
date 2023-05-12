@@ -18,6 +18,10 @@ import {DummyComponent} from "./components/dummy/dummy.component";
 import {MainAdminsComponent} from "./pages/main-admins/main-admins.component";
 import {HomePatientsComponent} from "./pages/main-patients/home-patients/home-patients.component";
 import {BalanceRechargeComponent} from "./pages/main-patients/balance-recharge/balance-recharge.component";
+import {ScheduleAppointmentComponent} from "./pages/main-patients/schedule-appointment/schedule-appointment.component";
+import {HomeMedicsComponent} from "./pages/main-medics/home-medics/home-medics.component";
+import {HomeLaboratoriesComponent} from "./pages/main-laboratories/home-laboratories/home-laboratories.component";
+import {AppointmentDetailsComponent} from "./pages/main-medics/appointment-details/appointment-details.component";
 
 const titleSufix = ' - P2IPC2';
 const routes: Routes = [
@@ -59,6 +63,11 @@ const routes: Routes = [
         path: 'balance-recharge',
         component: BalanceRechargeComponent,
         title: 'Paciente - Recarga de saldo' + titleSufix
+      },
+      {
+        path: 'schedule-appointment',
+        component: ScheduleAppointmentComponent,
+        title: 'Paciente - Agendar cita' + titleSufix
       }
     ],
     title: 'Paciente - Principal' + titleSufix
@@ -76,6 +85,16 @@ const routes: Routes = [
         path: 'initial-setup',
         component: InitialSetupMedicsComponent,
         title: 'Médico - Configuración inicial' + titleSufix
+      },
+      {
+        path: 'home',
+        component: HomeMedicsComponent,
+        title: 'Médico - Inicio' + titleSufix
+      },
+      {
+        path: 'appointments/:id',
+        component: AppointmentDetailsComponent,
+        title: 'Médico - Detalles de cita' + titleSufix
       }
     ],
     title: 'Médico - Principal' + titleSufix
@@ -94,7 +113,11 @@ const routes: Routes = [
         component: InitialSetupLaboratoriesComponent,
         title: 'Laboratorio - Configuración inicial' + titleSufix
       },
-
+      {
+        path: 'home',
+        component: HomeLaboratoriesComponent,
+        title: 'Laboratorio - Inicio' + titleSufix
+      }
     ],
     title: 'Laboratorio - Principal' + titleSufix
   },

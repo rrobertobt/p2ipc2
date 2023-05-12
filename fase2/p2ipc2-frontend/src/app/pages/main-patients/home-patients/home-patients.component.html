@@ -1,10 +1,37 @@
-<div class="actions-container">
-  <mat-card class="card-container">
-    <mat-card-title> Agendar consulta </mat-card-title>
-    <mat-card-content>
-      <button mat-fab color="primary" aria-label="">
-        <mat-icon>add</mat-icon>
-      </button>
-    </mat-card-content>
-  </mat-card>
+<div class="main-container">
+  <h1 style="font-weight: bold">
+    Bienvenid@!
+  </h1>
+  <p style="font-size: 1.2rem; margin-bottom: 2rem">
+    En esta sección podrás agendar tus consultas y solicitar exámenes.
+    ¿Qué deseas hacer?
+  </p>
+  <div class="actions-container">
+    <mat-card class="card-container">
+      <mat-card-title style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem">
+        <mat-icon
+          style="font-size: 1.7rem; width: auto; height: auto; margin-bottom: -8px; margin-right: 8px;color: darkslategray"
+        >calendar_month</mat-icon>
+        Agendar consulta
+      </mat-card-title>
+      <mat-card-content>
+        <a mat-fab color="primary" routerLink="/main-patients/schedule-appointment">
+          <mat-icon>add</mat-icon>
+        </a>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card-container">
+      <mat-card-title style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem">
+        <mat-icon
+          style="font-size: 1.7rem; width: auto; height: auto; margin-bottom: -8px; margin-right: 8px;color: darkslategray"
+        >biotech</mat-icon>
+        Solicitar exámen(es)
+      </mat-card-title>
+      <mat-card-content>
+        <a mat-fab color="primary" routerLink="/main-patients/request-tests">
+          <mat-icon>add</mat-icon>
+        </a>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

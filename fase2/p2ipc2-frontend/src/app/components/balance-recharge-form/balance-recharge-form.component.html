@@ -1,6 +1,6 @@
 <div class="container">
   <mat-card class="card">
-    <form #balanceRechargeForm="ngForm">
+    <form #balanceRechargeForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="fields">
         <mat-form-field appearance="outline">
           <mat-label>Cantidad</mat-label>

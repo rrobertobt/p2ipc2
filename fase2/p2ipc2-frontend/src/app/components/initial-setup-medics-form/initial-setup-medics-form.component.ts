@@ -41,20 +41,49 @@ export class InitialSetupMedicsFormComponent {
   addSchedule() {
     console.log('Add schedule');
     if (this.newSchedule !== '') {
-      const [startNew, endNew] = this.newSchedule.split('-').map(s => new Date(`1970-01-01T${s}:00`));
-      const overlaps = this.schedules.some(previousSchedule => {
-        const [startPrev, endPrev] = previousSchedule.split('-').map(s => new Date(`1970-01-01T${s}:00`));
-        return (startNew < endPrev && endNew > startPrev);
-      });
-      if (!overlaps) {
-        this.schedules.push(this.newSchedule);
-        this.matSnackBar.open('Horario agregado', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
-        this.newSchedule = '';
-      } else {
-        this.matSnackBar.open('El horario se superpone con otro', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
+      const [start, end] = this.newSchedule.split('-');
+
+      // Convert the start and end times to JavaScript Date objects
+      const startDate = new Date(`1970-01-01T${start}:00`);
+      const endDate = new Date(`1970-01-01T${end}:00`);
+
+      // Add each hour as a separate schedule to the previous schedules
+      for (let date = startDate; date <= endDate; date.setHours(date.getHours() + 1)) {
+        const hour = date.toLocaleTimeString([], { hour: '2-digit', hour12: false });
+        const newSchedule = `${hour}:00-${hour}:59`;
+        const overlaps = this.schedules.some(previousSchedule => {
+          const [startPrev, endPrev] = previousSchedule.split('-');
+          const startPrevDate = new Date(`1970-01-01T${startPrev}:00`);
+          const endPrevDate = new Date(`1970-01-01T${endPrev}:00`);
+          return (date >= startPrevDate && date < endPrevDate);
+        });
+        if (overlaps) {
+          this.matSnackBar.open('El horario se superpone con otro', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
+        } else {
+          this.matSnackBar.open('Horario agregado', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
+          this.schedules.push(newSchedule);
+          this.newSchedule = '';
+        }
       }
     }
   }
+  // addSchedule() {
+  //   console.log('Add schedule');
+  //   if (this.newSchedule !== '') {
+  //     const [startNew, endNew] = this.newSchedule.split('-').map(s => new Date(`1970-01-01T${s}:00`));
+  //     const overlaps = this.schedules.some(previousSchedule => {
+  //       const [startPrev, endPrev] = previousSchedule.split('-').map(s => new Date(`1970-01-01T${s}:00`));
+  //       return (startNew < endPrev && endNew > startPrev);
+  //     });
+  //     if (!overlaps) {
+  //       this.schedules.push(this.newSchedule);
+  //       this.matSnackBar.open('Horario agregado', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
+  //       this.newSchedule = '';
+  //     } else {
+  //       this.matSnackBar.open('El horario se superpone con otro', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
+  //     }
+  //   }
+  // }
 
   onSubmit() {
     const medicId = this.currentUserService.getCurrentUser().medic_id
@@ -73,15 +102,19 @@ export class InitialSetupMedicsFormComponent {
       return;
     }
     const selectedSpecialities = this.specialities.filter(s => s.selected).map(s => ({ id: s.id, price: s.price }));
-    const requestBody = { schedules: this.schedules, specialities: selectedSpecialities, medic_id: medicId, user_id: userId };
+    // change schedules from 08:00-08:59 to only 08:00
+    const fixedSchedules = this.schedules.map(s => s.split('-')[0]);
 
+    const requestBody = { schedules: fixedSchedules, specialities: selectedSpecialities, medic_id: medicId, user_id: userId };
+
+    console.log(requestBody);
     // send request to backend
     this.initialSetupMedicsService.finishSetup(requestBody).subscribe(
       {
         next: (response) => {
           this.matSnackBar.open('Configuración inicial exitosa, por favor recarga la página para aplicar los cambios', 'Cerrar', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' });
           this.currentUserService.updateCurrentUser();
-          this.router.navigate(['/main-medics']).then();
+          this.router.navigate(['/main-medics/home']).then();
         },
         error: (error) => {
           console.log(error);

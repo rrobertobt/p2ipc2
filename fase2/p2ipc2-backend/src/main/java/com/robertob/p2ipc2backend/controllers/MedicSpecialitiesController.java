@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/medics-specialities")
+@WebServlet("/medics-specialities/*")
 public class MedicSpecialitiesController extends HttpServlet {
     GsonUtils<AllMedicsSpecialities> gsonAllMedicsSpecialities;
     SpecialityService specialityService;
@@ -22,13 +22,27 @@ public class MedicSpecialitiesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        var allMedicsSpecialities = specialityService.findAllMedicsSpecialities();
-        if (allMedicsSpecialities.size() == 0) {
-            System.out.println("log: error on getting all medics specialities");
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error on getting all medics specialities");
-            return;
+        // path is: /medics-specialities/id
+        var pathInfo = request.getPathInfo();
+        System.out.println(pathInfo);
+        if (pathInfo == null) {
+            var allMedicsSpecialities = specialityService.findAllMedicsSpecialities();
+            System.out.println(allMedicsSpecialities);
+            if (allMedicsSpecialities.size() == 0) {
+                System.out.println("log: error on getting all medics specialities");
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error on getting all medics specialities");
+                return;
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+            gsonAllMedicsSpecialities.sendAsJson(response, allMedicsSpecialities);
         }
-        response.setStatus(HttpServletResponse.SC_OK);
-        gsonAllMedicsSpecialities.sendAsJson(response, allMedicsSpecialities);
+        if (pathInfo.length() == 2) {
+            String medicId = pathInfo.split("/")[1];
+            var medicSpecialities = specialityService.findMedicsSpecialities(Integer.parseInt(medicId));
+            response.setStatus(HttpServletResponse.SC_OK);
+            gsonAllMedicsSpecialities.sendAsJson(response, medicSpecialities);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 }

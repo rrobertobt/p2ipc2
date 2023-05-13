@@ -1,6 +1,7 @@
 package com.robertob.p2ipc2backend.database;
 
 import com.robertob.p2ipc2backend.models.AllMedicsSpecialities;
+import com.robertob.p2ipc2backend.models.MedicSpecialities;
 import com.robertob.p2ipc2backend.models.Speciality;
 
 import java.sql.Connection;
@@ -66,5 +67,33 @@ public class SpecialityRepository {
             return null;
         }
         return allMedicsSpecialities;
+    }
+
+    public List<MedicSpecialities> findMedicsSpecialities(int id) {
+        String query = "SELECT specialities.id as speciality_id ,specialities.name as speciality_name, specialities.description, medics_specialities.price\n" +
+                "FROM medics_specialities\n" +
+                "         JOIN specialities ON medics_specialities.speciality_id = specialities.id\n" +
+                "WHERE medics_specialities.medic_id = ?";
+
+        List<MedicSpecialities> medicSpecialities = new ArrayList<>();
+        try {
+            var preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            var resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                MedicSpecialities medicSpeciality = MedicSpecialities.builder()
+                        .speciality_id(resultSet.getInt("speciality_id"))
+                        .speciality_name(resultSet.getString("speciality_name"))
+                        .description(resultSet.getString("description"))
+                        .price(resultSet.getDouble("price"))
+                        .build();
+                medicSpecialities.add(medicSpeciality);
+                System.out.println("log: medic specialities listed");
+            }
+            return medicSpecialities;
+        } catch (Exception e) {
+            System.out.println("log: " + e.getMessage());
+            return null;
+        }
     }
 }

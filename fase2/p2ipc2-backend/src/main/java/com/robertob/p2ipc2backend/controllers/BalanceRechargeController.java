@@ -55,13 +55,29 @@ public class BalanceRechargeController extends HttpServlet {
     // get method for history of balance recharges of a user
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // if the route is: /balance-recharge/commissions-history we fetch all the history of commissions
+        // so we check if the path is commissions-history
+        var path = request.getPathInfo();
+        if (path != null && path.equals("/commissions-history")) {
+            var commissions = balanceRechargeService.findAllCommissionHistory();
+            if (commissions == null) {
+                System.out.println("log: error on getting commissions");
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error: Commissions not found or error on getting commissions");
+                return;
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+            gsonBalanceRecharge.sendAsJson(response, commissions);
+            return;
+        }
+
+        // if the route is: /balance-recharge/id
         var id = ControllerUtils.getIdFromPath(request, response);
         if (id == -1) {
             return;
         }
         var user = userService.findOne(id);
         if (user == null) {
-            System.out.println("log: error on getting user");
+            System.out.println("log: user doesnt exist or error on getting user");
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error: User not found or error on getting user");
             return;
         }

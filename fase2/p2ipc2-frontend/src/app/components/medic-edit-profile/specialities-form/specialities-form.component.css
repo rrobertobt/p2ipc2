@@ -1,0 +1,11 @@
+.main-container {
+  border-radius: 5px;
+  padding: 20px;
+}
+
+mat-card {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}

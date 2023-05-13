@@ -1,0 +1,28 @@
+<div class="main-container">
+  <mat-card>
+    <mat-card-title>Horarios</mat-card-title>
+    <div class="card-content">
+      <p>Actualmente estas atendiendo en estos horarios:</p>
+      <div class="schedules-container">
+        <span *ngFor="let schedule of schedules; index as i" class="schedule-item">
+          <p style="margin-bottom: 0">{{ schedule }}</p>
+          <button mat-icon-button color="warn" (click)="removeSchedule(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
+      </div>
+      <div class="add-schedule-container">
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Horario" [(ngModel)]="newSchedule">
+        </mat-form-field>
+        <button mat-icon-button color="primary" style="margin-top: -20px" (click)="addSchedule()" >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <button mat-raised-button color="primary" (click)="saveSchedules()">
+        <mat-icon>save</mat-icon>
+        GUARDAR
+      </button>
+    </div>
+  </mat-card>
+</div>

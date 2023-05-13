@@ -33,6 +33,30 @@ public class MedicSchedulesRepository {
         }
     }
 
+    public boolean updateSchedules(String[] schedules, int medic_id) {
+        String deleteQuery = "DELETE FROM medic_schedules WHERE medic_id = ?";
+        String query = "INSERT INTO medic_schedules (medic_id, schedule) VALUES (?, ?)";
+        try {
+            var preparedStatementDelete = connection.prepareStatement(deleteQuery);
+            preparedStatementDelete.setInt(1, medic_id);
+            preparedStatementDelete.executeUpdate();
+            System.out.println("log: schedules deleted");
+
+            // insert new schedules
+            for ( var schedule : schedules) {
+                var preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, medic_id);
+                preparedStatement.setString(2, schedule);
+                preparedStatement.executeUpdate();
+                System.out.println("log: schedule updated");
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("log: " + e.getMessage());
+            return false;
+        }
+    }
+
     public List<String> getMedicSchedules(int medic_id) {
         String query = "SELECT schedule FROM medic_schedules WHERE medic_id = ?";
         List<String> schedules = new ArrayList<>();

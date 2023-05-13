@@ -56,6 +56,10 @@ import { AppointmentDetailsComponent } from './pages/main-medics/appointment-det
 import { AppointmentDetailsCardComponent } from './components/appointment-details-card/appointment-details-card.component';
 import { AppointmentInfoComponent } from './components/appointment-details-card/appointment-info/appointment-info.component';
 import { HomeAdminComponent } from './pages/main-admins/home-admin/home-admin.component';
+import { CommissionHistoryTableComponent } from './components/commission-history-table/commission-history-table.component';
+import { UpdateCommissionFormComponent } from './components/update-commission-form/update-commission-form.component';
+import { SchedulesFormComponent } from './components/medic-edit-profile/schedules-form/schedules-form.component';
+import { SpecialitiesFormComponent } from './components/medic-edit-profile/specialities-form/specialities-form.component';
 
 
 @NgModule({
@@ -95,7 +99,11 @@ import { HomeAdminComponent } from './pages/main-admins/home-admin/home-admin.co
     AppointmentDetailsComponent,
     AppointmentDetailsCardComponent,
     AppointmentInfoComponent,
-    HomeAdminComponent
+    HomeAdminComponent,
+    CommissionHistoryTableComponent,
+    UpdateCommissionFormComponent,
+    SchedulesFormComponent,
+    SpecialitiesFormComponent
   ],
     imports: [
         BrowserModule,

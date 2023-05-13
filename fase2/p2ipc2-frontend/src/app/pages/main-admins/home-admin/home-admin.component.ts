@@ -8,19 +8,17 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./home-admin.component.css']
 })
 export class HomeAdminComponent {
-  newCommission = 1;
-
   constructor(
     private balanceRechargeService: BalanceRechargeService,
     private snack: MatSnackBar
-  ) {
-  }
-  saveNewCommission() {
-    const value = this.newCommission / 100;
-    this.newCommission = 1;
-    this.balanceRechargeService.updateAdminCommission(value).subscribe({
+  ) {}
+  saveNewCommission(value: number) {
+    const newCommission = value / 100;
+    console.log(value);
+    this.balanceRechargeService.updateAdminCommission(newCommission).subscribe({
       next: () => {
         this.snack.open('Comisión actualizada', 'CERRAR', {duration: 3000, verticalPosition: 'top', horizontalPosition: 'center'});
+        this.balanceRechargeService.updateCommissionHistory();
       },
       error: () => {
         this.snack.open('Error al actualizar la comisión', 'CERRAR', {duration: 3000, verticalPosition: 'top', horizontalPosition: 'center'});

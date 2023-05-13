@@ -1,0 +1,29 @@
+<table mat-table [dataSource]="dataSource">
+  <!-- Column Definitions -->
+  <ng-container matColumnDef="start_date">
+    <th mat-header-cell *matHeaderCellDef style="width: 200px;"> Desde fecha </th>
+    <td mat-cell *matCellDef="let element" style="width: 200px;"> {{element.start_date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="end_date">
+    <th mat-header-cell *matHeaderCellDef style="width: 200px;"> Hasta fecha</th>
+    <td mat-cell *matCellDef="let element" style="width: 200px;">
+      <ng-container *ngIf="element.end_date == null">
+        <strong>Actual</strong>
+      </ng-container>
+      <ng-container *ngIf="element.end_date != null">
+        {{element.end_date}}
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="new_commission">
+    <th mat-header-cell *matHeaderCellDef style="width: 50px;"> Porcentaje</th>
+    <td mat-cell *matCellDef="let element" style="width: 50px;"><strong>{{(element.new_commission * 100).toFixed(0)}}%</strong> </td>
+  </ng-container>
+
+  <!-- Table Rows -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>

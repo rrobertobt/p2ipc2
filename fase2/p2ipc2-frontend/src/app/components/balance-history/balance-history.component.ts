@@ -15,22 +15,6 @@ export class BalanceHistoryComponent implements OnInit {
     private balanceRechargeService: BalanceRechargeService,
     private currentUserService: CurrentUserService
   ) { }
-  // dataSource = [
-  //   {amount: 100, date: new Date()},
-  //   {amount: 50, date: new Date()},
-  //   {amount: 200, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  //   {amount: 75, date: new Date()},
-  // ];
   ngOnInit(): void {
     this.initBalanceHistory();
   }

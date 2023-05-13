@@ -11,6 +11,10 @@ public class MedicSchedulesService {
         this.medicSchedulesRepository = new MedicSchedulesRepository();
     }
 
+    public boolean updateSchedules(String[] schedules, int medic_id) {
+        return this.medicSchedulesRepository.updateSchedules(schedules, medic_id);
+    }
+
     public List<String> getMedicSchedules(int medic_id) {
         return this.medicSchedulesRepository.getMedicSchedules(medic_id);
     }
@@ -18,4 +22,5 @@ public class MedicSchedulesService {
     public List<String> getMedicSchedules(int medic_id, String date) {
         return this.medicSchedulesRepository.getMedicSchedules(medic_id, date);
     }
+
 }

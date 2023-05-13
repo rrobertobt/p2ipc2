@@ -1,0 +1,15 @@
+<p>
+  Ingresa el porcentaje de comisión que deseas aplicar a la aplicación por cada acción que se realiza para recargar a tu saldo.
+</p>
+<form (ngSubmit)="saveNewCommission()" #commissionForm="ngForm" style="display: flex; flex-direction: column; align-items: center">
+  <mat-form-field appearance="outline">
+    <input matInput type="number" placeholder="Porcentaje de comisión" [(ngModel)]="newCommission" min="1" max="100" name="newCommission" >
+    <span matSuffix style="margin-left: -9rem">%</span>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!commissionForm.valid">
+    <mat-icon>
+      save
+    </mat-icon>
+    ACTUALIZAR
+  </button>
+</form>

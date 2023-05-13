@@ -8,12 +8,14 @@ import {CurrentUserService} from "../../services/current-user/current-user.servi
 })
 export class EditProfileComponent implements OnInit{
   currentUser = this.currentUserService.getCurrentUser();
+  currentType = this.currentUserService.getCurrentUser().type;
   constructor (
     private currentUserService: CurrentUserService,
   ) {}
 
   ngOnInit() {
     this.currentUser = this.currentUserService.getCurrentUser();
+    this.currentType = this.currentUserService.getCurrentUser().type;
     this.currentUser.birthdate = new Date(this.currentUser.birthdate).toISOString();
   }
 }

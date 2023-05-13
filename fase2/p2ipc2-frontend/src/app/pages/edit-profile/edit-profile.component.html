@@ -1,19 +1,34 @@
 <div
-  style="
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-  "
+  class="patient-container"
+  *ngIf="currentType === 'patient' || currentType === 'administrator'"
 >
-  <mat-icon style="font-size: 4rem; width: auto; height: auto; color: darkslategray;">
-    account_circle
-  </mat-icon>
-  <h1 style="text-align: center; font-weight: bold">
-    Actualizar información de usuario
-  </h1>
   <app-edit-profile-form
    [user]="currentUser"
   ></app-edit-profile-form>
 </div>
+
+<div
+  class="medic-lab-container"
+  *ngIf="currentType === 'medic'"
+>
+  <app-edit-profile-form
+    [user]="currentUser"
+  ></app-edit-profile-form>
+  <div
+    class="extra-info-container"
+  >
+    <app-schedules-form></app-schedules-form>
+    <app-specialities-form></app-specialities-form>
+  </div>
+</div>
+
+<div
+  class="medic-lab-container"
+  *ngIf="currentType === 'laboratory'"
+>
+  <app-edit-profile-form
+    [user]="currentUser"
+  ></app-edit-profile-form>
+
+</div>
+
